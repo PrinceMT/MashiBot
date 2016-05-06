@@ -37,7 +37,7 @@ exports.commands = {
         
         aquamarin: function (target, room, user){
           if (user.can('hotpatch', null, room)) {
-                var colors = ['##76EEC6];
+                var colors = ['##76EEC6'];
                 if(!target) return this.sendReply('/rainbow message');
                         userColor = '',
                         currentDate = new Date(),
@@ -87,7 +87,7 @@ exports.commands = {
 
 namelightgreen: function (target, room, user){
           if (user.can('hotpatch', null, room)) {
-                var colors = ['##baeb70];
+                var colors = ['##baeb70'];
                 if(!target) return this.sendReply('/rainbow message');
                         userColor = '',
                         currentDate = new Date(),
@@ -111,7 +111,7 @@ namelightgreen: function (target, room, user){
 
         namepurple: function (target, room, user){
           if (user.can('hotpatch', null, room)) {
-                var colors = ['##7f04f6];
+                var colors = ['##7f04f6'];
                 if(!target) return this.sendReply('/rainbow message');
                         userColor = '',
                         currentDate = new Date(),
