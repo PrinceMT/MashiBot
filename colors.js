@@ -58,9 +58,11 @@ exports.commands = {
           }
           else return this.errorReply('You must be a Shadowfire DEV/Admin to use this command.');
         },
+
+
         mediumorchid: function (target, room, user){
           if (user.can('hotpatch', null, room)) {
-                var colors = ['##BA55D3];
+                var colors = ['##BA55D3'];
                 if(!target) return this.sendReply('/rainbow message');
                         userColor = '',
                         currentDate = new Date(),
