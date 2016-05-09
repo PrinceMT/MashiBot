@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sendspace.com Mobile File</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="icon" href="https://m.sendspace.com/favicon.ico" />
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="https://m.sendspace.com/css/font-awesome-4.2.0/css/font-awesome.min.css?v=1.6" />
+<link rel="stylesheet" href="https://m.sendspace.com/css/the.css?v=1.6" />        <script type="text/javascript" src="https://m.sendspace.com/js/jquery-1.11.1.min.js"></script>
+  </head>
+  <body>
+    <header>
+  <div class="header max-width">
+    
+<div class="fr hicons">
+<i class="fa fr fa-fw fstools nd fa-ellipsis-h" onclick="return FSTools.push()"></i>
+<i class="fa fr fa-fw back nd fa-chevron-left" onclick="history.go(-1)"></i></div>    
+<a class="logo" onclick="return Menu.toggle()">
+<img src="https://m.sendspace.com/img/logo.png" alt="" /></a>
+<span class="hlabel" onclick="return Menu.toggle()">Sendspace.com</span>  </div>
+</header>
+<div id="fstools" onclick="FSTools.pop()">
+  <div class="max-width">
+    <ul class="fr">
+      
+<li class="new_folder" onclick="return CreateFolder.push()">New Folder</li>
+<li class="folder_properties" onclick="return Folder_infoDeck.from_files()">Folder Properties</li>
+<li class="select_all" onclick="return FSTools.select_all()">Select All</li>
+<li class="deselect_all nd" onclick="return FSTools.deselect_all()">Deselect All</li>
+<li class="sorting" onclick="return FileSort.push()">Sorting</li>
+<li class="search" onclick="SearchDeck.term='';return SearchDeck.push()">Search</li>
+<li class="refresh" onclick="return FilesDeck.push()">Refresh</li>    </ul>
+  </div>
+</div>
+<div id="menu" onclick="return Menu.close()">
+  <ul>
+    
+<li>
+<a id="menu-login" data-deck="login" href="https://m.sendspace.com/login" title="Log In" onclick="return Menu.click(this,event)">
+<i class="fa fa-sign-in fa-fw"></i> Log In</a></li>
+<li>
+<a id="menu-register" data-deck="register" href="https://m.sendspace.com/register" title="Sign Up" onclick="return Menu.click(this,event)">
+<i class="fa fa-plus-square fa-fw"></i> Sign Up</a></li>
+<li>
+<a id="menu-index" data-deck="index" href="https://m.sendspace.com/index" title="Upload" onclick="return Menu.click(this,event)">
+<i class="fa fa-cloud-upload fa-fw"></i> Upload</a></li>
+<li>
+<a id="menu-files" data-deck="files" href="https://m.sendspace.com/files" title="My Files" onclick="return Menu.click(this,event)">
+<i class="fa fa-folder fa-fw"></i> My Files</a></li>
+<li>
+<a id="menu-chat" data-deck="chat" href="https://m.sendspace.com/chat" title="Messaging
+&lt;sup&gt;beta&lt;/sup&gt;" onclick="return Menu.click(this,event)">
+<i class="fa fa-comments-o fa-fw"></i> Messaging
+<sup>beta</sup></a></li>
+<li>
+<a id="menu-profile" data-deck="profile" href="https://m.sendspace.com/profile" title="My Profile" onclick="return Menu.click(this,event)">
+<i class="fa fa-user fa-fw"></i> My Profile</a></li>
+<li>
+<a id="menu-plans" data-deck="plans" href="https://m.sendspace.com/plans" title="Plans" onclick="return Menu.click(this,event)">
+<i class="fa fa-list-ol fa-fw"></i> Plans</a></li>
+<li>
+<a id="menu-contact" data-deck="contact" href="https://m.sendspace.com/contact" title="Contact Us" onclick="return Menu.click(this,event)">
+<i class="fa fa-envelope fa-fw"></i> Contact Us</a></li>
+<li>
+<a id="menu-logout" data-deck="logout" href="https://m.sendspace.com/logout" title="Log Out" onclick="return Menu.click(this,event)">
+<i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>  </ul>
+  <div id="mfade">&nbsp;</div>
+</div>
+<section id="wrapper">
+<section id="content" class="max-width pad"></section></section>
+<div class="mode prep nd">
+<div class="tac" id="preparing">
+<i class="fa fa-spinner fa-spin"></i>
+<p class="tac">Uploading, please wait.</p></div>
+<iframe id="progress_display" class="nd"></iframe></div>
+<footer class="glued-bottom">
+<section class="max-width footer">Switch to 
+<a class="desktop-version" href="https://www.sendspace.com/?desktop_version=true">Desktop version</a><br />&copy; 2005-2016 sendspace.com</section></footer>    <div id="loader">
+      
+<i class="fa fa-spinner fa-spin"></i>    </div>
+    <div id="failure" onclick="ref.failure.hide()">
+      <p class="tac">Failed to fetch data, please retry.</p>
+      <button class="btn-a">Close</button>
+    </div>
+    <script type="text/javascript">
+				function merge_variables() {
+					Layout.deck = 'file';
+					ref.url = "https://m.sendspace.com/";
+					ref.chat_base = "https://www.sendspace.com/messaging/";
+					ref.hlabels ={"register":"Create An Account","index":"Sendspace.com","profile_pwdchange":"Password Change","profile_namechange":"Name Change","file":"Download File","contact_form":"Contact Message","terms":"Terms Of Use","delete":"Delete File","pwd-protected-folder":"Password Protected Folder","filegroup":"Multiple Downloads","search":"Search","file_info":"File Properties","folder_info":"Folder Options","filelinks":"File Link Types"};
+
+					ref.t = {"unlimited":"unlimited","expired":"expired","subscription":"subscription","bandw_left":"left","active_until":"Active until","registration_confirmation":"<b>Registration complete<\/b><br \/>\n<br \/>\nYou have registered successfully!<br \/>\n<br \/>\nYou can now use all the features<br \/>\navailable to free registered users.","file_too_big":"File too big to upload","password_changed":"Password changed successfully!","incorrect_password":"Incorrect password!","incorrect_current_pwd":"Current password is incorrect!","one_month":"1 Month","x_months":"Months","passwords_mismatch":"Password mismatch","invalid_dirname":"Invalid folder name","dirname_modified":"Folder name was modified to exclude forbidden characters","filename_modified":"File name was modified to exclude forbidden characters","parent_folder":"go to parent folder","basket_file":"file","basket_files":"files","basket_folder":"folder","basket_folders":"folders","select_destination":"Select Destination","updated_successfully":"Updated successfully!","shared_view":"Shared View","update_for_public_url":"Save changes to generate public URL","select_file_first":"Please select a file first!","uploaders_description":"Uploader's description","check_fields":"Please check your input!","check_recipient_email":"Please check recipient email address","enter_recipient_email":"Enter recipient email address","check_sender_email":"Please check your email address","no_search_match":"No matching files or folders found","search_invalid":"The search term is too short","pwd_incorrect":"Incorrect Password!<br \/>\nPlease try again","link_incorrect":"Link Incorrect","upload_finished":"Upload Finished","search_results":"Search Results","logged_out":"You have been logged out","no_new_password":"Please enter new password!","upload_cancelled":"Upload cancelled","uploading":"Upload In Progress","download_started":"Download started","accept_terms":"Please accept our Terms of Use","dl_never":"Never","copy_error":"An error occured. Please retry.","file_copy":"This file will be copied<br \/>\nto your account soon","file_copied_previously":"It seems you have copied this file before","file_copies_review":"Review possible duplicate|Review possible duplicates","file_copy_another":"Make Another Copy","captcha_unsolved":"Pass the challenge to proceed","premium_only_link":"Available for premium users only","chat_navail":"Sorry, the messaging service<br \/>\nis not available at the moment"}
+ref.lang_to='en';
+ref.cdomain='.sendspace.com';
+ref.cdomain_ss='.sendspace.com';
+ref.captcha_key='6LebOQwTAAAAAESSBBvqqHnaphr-AsVMbwqUni98';;
+
+FileDeck.file_id = "ew95lh";
+APIProxy.root_url="https://api.sendspace.com/rest/";
+ref.ajax_timeout=30*1000;				}
+    </script>
+    
+<script type="text/javascript" src="https://m.sendspace.com/js/jquery.cookie.js?v=1.6"></script>
+<script type="text/javascript" src="https://m.sendspace.com/js/the.js?v=1.6"></script>
+<script type="tpl/template" class="tpl" id="chat-single-tpl">
+<p class="tac">The Chat feature is available only when there are several active users in your account</p></script>
+<script type="tpl/template" class="tpl" id="chat-tpl"><div id="chat-frame">Loading resources ...</div></script>
+<script type="tpl/template" class="tpl" id="choice-dlg-tpl">
+<div id="choice" onclick="ChoiceDialog.pop()">
+<div class="max-width">
+<div class="tac">%label%</div>
+<button class="btn-a" onclick="return ChoiceDialog.agree()">%agree%</button>
+<button class="btn-c" onclick="return ChoiceDialog.cancel()">Cancel</button></div></div></script>
+<script type="tpl/template" class="tpl" id="clipped-tpl">Selected: %selection%</script>
+<script type="tpl/template" class="tpl" id="contact-tpl">
+<div class="contact">
+<label>Please choose a topic</label>
+<ul onclick="return ContactDeck.item_click(event)">
+<li title="General question">General question</li>
+<li title="Problem using sendspace mobile service">Problem using sendspace mobile service</li>
+<li title="Suggestion / new feature request">Suggestion / new feature request</li>
+<li title="Pro service problems">Pro service problems</li>
+<li title="Reporting Abuse">Reporting Abuse</li>
+<li title="Other">Other</li></ul>
+<p class="tac" onclick="Layout.change('index')">
+<a class="btn-c btn-w">Cancel</a></p></div></script>
+<script type="tpl/template" class="tpl" id="contact_form-tpl">
+<form class="form-vert contact" method="post" action="https://m.sendspace.com/contact" onsubmit="return ContactFormDeck.submit(this)">
+<h1 class="topic tac">&nbsp;</h1><div class="userinf-entry">
+<i class="fa fa-edit fa-fw ii"></i>
+<input name="name" type="text" required="required" placeholder="Your name" />
+<i class="fa fa-envelope-o fa-fw ii"></i>
+<input name="email" type="email" required="required" placeholder="Your e-mail address" /></div>
+<div class="emudiv" style="
+  border:1px solid #ccc;
+  border-radius:5px;
+  overflow:hidden;
+  ">
+<textarea name="message" style="border-top:100px solid #fff;margin-top:-100px;" required="required" rows="5" onfocus="$('.emudiv').addClass('emufocus')" onblur="$('.emudiv').removeClass('emufocus')"></textarea></div><br />
+<button class="btn-a">Submit</button><br />
+<p class="tac" onclick="Layout.change('contact',null)">
+<a class="btn-c btn-w">Cancel</a></p></form></script>
+<script type="tpl/template" class="tpl" id="delete-confirm-tpl">
+<div id="deleting" onclick="return DeleteConfirm.pop()"><section class="confirm max-width">
+<div class="tac">Delete
+<b class="tac">%item%</b>?</div>
+<button class="btn-c">Cancel</button>
+<button class="btn-a fr" onclick="return DeleteConfirm.confirm()">Delete</button></section></div></script>
+<script type="tpl/template" class="tpl" id="delete-file-tpl">
+<form class="form-vert download" onsubmit="return DeleteDeck.confirm(this)">
+<p class="tac">
+<b>You are about to delete the folowing file:</b></p>
+<h1>%name%</h1>
+<img src="/img/file_icons/%icon%.png" alt="" />
+<div class="specs">
+<p>
+<span>File Size:</span> %size%</p></div>
+<p class="tac description nd">
+<label>Uploader's description</label>
+<p class="tac">%description%</p></p><br />
+<input type="hidden" name="file_id" value="%file_id%" />
+<input type="hidden" name="delete_code" value="%delete_code%" />
+<p>Please note: This action cannot be reversed. If you press the 'Delete File' button shown below, this file will be permanently removed from sendspace.</p>
+<button class="btn-c" onclick="return Layout.change('index')">Cancel</button><br />
+<button class="btn-a" onclick="return DeleteDeck.confirm(this.form)">Delete File</button>
+<div class="nd file-removed">File successfully removed</div></form></script>
+<script type="tpl/template" class="tpl" id="df_browse-tpl">
+<div class="df_browse">
+<ul class="files">&nbsp;</ul>
+<div class="df_modal"><section class="confirm max-width">
+<p>Target folder:
+<b class="target">My Files</b></p>
+<button class="btn-c" onclick="return DestFolderDeck.pop()">Cancel</button>
+<button class="btn-a fr" onclick="return DestFolderDeck.select()">Upload Here</button></section></div></div></script>
+<script type="tpl/template" class="tpl" id="dl-file-tpl">
+<form class="form-vert download">
+<h1>%name%</h1>
+<img src="/img/file_icons/%icon%.png" alt="" />
+<div class="specs">
+<p>
+<span>File Size:</span> %size%</p></div>
+<div class="tac description nd">
+<label>Uploader's description</label>
+<p class="tac">%description%</p></div>
+<div class="warning-block">
+<div class="label">
+<h3>This file may be harmful<br />
+for your device!</h3></div></div>
+<div class="sharing tac">
+<label>SHARE this file WITH YOUR FRIENDS</label>
+<label style="display:none">SHARE these files WITH YOUR FRIENDS</label>
+<a href="https://www.facebook.com/sharer/sharer.php?u=%share_url%" target="_blank" onclick="return Layout.shared('fb')">
+<i class="fa fa-facebook"></i></a>
+<a href="https://twitter.com/share?url=%share_url%" target="_blank" onclick="return Layout.shared('tw')">
+<i class="fa fa-twitter"></i></a>
+<a href="http://vk.com/share.php?url=%share_url%" target="_blank" onclick="return Layout.shared('vk')">
+<i class="fa fa-vk"></i></a>
+<a href="https://www.blogger.com/blog-this.g?u=%share_url%" target="_blank" class="bl" onclick="return Layout.shared('bl')">&nbsp;</a>
+<a href="https://www.reddit.com/submit?url=%share_url%" target="_blank" onclick="return Layout.shared('rd')">
+<i class="fa fa-reddit"></i></a></div>
+<div class="download_type free">
+<a class="btn-a" onclick="Layout.change('plans')">Download as Pro *</a>
+<div class="copy_file free">
+<a onclick="return CopyFile.push()" class="btn-c btn-f">Save to My Account</a></div>
+<p class="tac">OR</p>
+<a target="_blank" class="btn-c btn-f" onclick="return FileDeck.download()">Download as free member **</a><br /><br />
+<p>* Pro Plan members have an unlimited lifetime storage and many other benefits without any speed limits!</p>
+<p>** Download speed and other limitations will be applied to free members</p></div>
+<div class="download_type nd">
+<a onclick="return FileDeck.download()" class="btn-a">Download Now</a>
+<div class="copy_file">
+<a onclick="return CopyFile.push()" class="btn-c btn-f">Save to My Account</a></div></div></form></script>
+<script type="tpl/template" class="tpl" id="file-captcha-tpl"><form action="?" class="form-vert" method="post" onsubmit="return FileDeck.captcha_check()">
+  
+<div class="download">
+<h1>%name%</h1>
+<img src="/img/file_icons/%icon%.png" alt="" />
+<div class="specs">
+<p>
+<span>File Size:</span> %size%</p></div>
+<div class="tac description nd">
+<label>Uploader's description</label>
+<p class="tac">%description%</p></div><br style="clear:both" /><br /></div>
+<div class="tac warning-block">
+<div class="label">
+<h3>This file may be harmful<br />
+for your device!</h3>
+<p>Please pass the verification to proceed:</p></div>
+<div id="captcha">&nbsp;</div>
+<button class="btn-a" onclick="return Layout.change('index')">Cancel</button>
+<button class="btn-c" onclick="return FileDeck.captcha_check()">Proceed Anyway</button></div></form>
+
+</script>
+<script type="tpl/template" class="tpl" id="file-expiry-notice-tpl">
+<div class="expiry_notice form-vert" onclick="gaevt('Invite Premium Upgrade Flow','Expiry Notice');return Layout.change('plans')">*Inactive files will be deleted after %inactive_days% days<br />
+<a class="btn-c btn-f">upgrade to keep forever</a></div></script>
+<script type="tpl/template" class="tpl" id="file-not-found-tpl">
+<div class="form-vert">
+<h1 class="tac err">Sorry, the file you requested is not available</h1>Possible reasons include:
+<ul>
+<li>File date limit has expired.</li>
+<li>File was not successfully uploaded.</li></ul>
+<p>It is not possible to restore the file.<br />
+Please contact the uploader and ask them to upload the file again.</p></div></script>
+<script type="tpl/template" class="tpl" id="file-password-tpl">
+<form class="form-vert" action="" method="post" onsubmit="FileDeck.push(this.file_password.value,true);return false">
+<h1 class="tac">This file has been password protected by the uploader *</h1>
+<i class="fa fa-unlock fa-fw ii"></i>
+<input name="file_password" type="password" autocomplete="off" required="required" />
+<button class="btn-a">Unlock</button>
+<p class="tac">* Do not contact sendspace about the password - we cannot provide this security information.</p></form></script>
+<script type="tpl/template" class="tpl" id="filegroup-not-found-tpl">
+<div class="form-vert">
+<h1 class="tac err">Sorry, the file group you requested is not available</h1>Possible reasons include:
+<ul>
+<li>All of the files' date limit has expired.</li>
+<li>All of the files' bandwidth limit is exhausted.</li>
+<li>Files were not successfully uploaded.</li></ul>
+<p>It is not possible to restore the files.<br />
+Please contact the uploader and ask them to upload the files again.</p></div></script>
+<script type="tpl/template" class="tpl" id="filegroup-tpl">
+<div class="filegroup">
+<div class="sharing tac">
+<label>SHARE this file WITH YOUR FRIENDS</label>
+<label style="display:none">SHARE these files WITH YOUR FRIENDS</label>
+<a href="https://www.facebook.com/sharer/sharer.php?u=%share_url%" target="_blank" onclick="return Layout.shared('fb')">
+<i class="fa fa-facebook"></i></a>
+<a href="https://twitter.com/share?url=%share_url%" target="_blank" onclick="return Layout.shared('tw')">
+<i class="fa fa-twitter"></i></a>
+<a href="http://vk.com/share.php?url=%share_url%" target="_blank" onclick="return Layout.shared('vk')">
+<i class="fa fa-vk"></i></a>
+<a href="https://www.blogger.com/blog-this.g?u=%share_url%" target="_blank" class="bl" onclick="return Layout.shared('bl')">&nbsp;</a>
+<a href="https://www.reddit.com/submit?url=%share_url%" target="_blank" onclick="return Layout.shared('rd')">
+<i class="fa fa-reddit"></i></a></div>
+<ul class="files"></ul></div></script>
+<script type="tpl/template" class="tpl" id="file_info-tpl">
+<div class="download">
+<img src="/img/file_icons/%icon%.png" alt="" />
+<div class="specs">
+<p>
+<span>File Size:</span> %size%</p>
+<p>
+<span>Uploaded:</span> %uploaded%</p>
+<p class="last_download nd">
+<span>Last download:</span> %last_download%</p>
+<p class="downloads nd">
+<span>Downloads:</span> %downloads%</p></div></div>
+<form class="form-vert properties" action="https://m.sendspace.com/file_info/?id=%id%" method="post" onsubmit="return File_infoDeck.submit(this)">
+<input type="hidden" name="file_id" value="%id%" />
+<div class="sharing tac">
+<label>SHARE this file WITH YOUR FRIENDS</label>
+<label style="display:none">SHARE these files WITH YOUR FRIENDS</label>
+<a href="https://www.facebook.com/sharer/sharer.php?u=%share_url%" target="_blank" onclick="return Layout.shared('fb')">
+<i class="fa fa-facebook"></i></a>
+<a href="https://twitter.com/share?url=%share_url%" target="_blank" onclick="return Layout.shared('tw')">
+<i class="fa fa-twitter"></i></a>
+<a href="http://vk.com/share.php?url=%share_url%" target="_blank" onclick="return Layout.shared('vk')">
+<i class="fa fa-vk"></i></a>
+<a href="https://www.blogger.com/blog-this.g?u=%share_url%" target="_blank" class="bl" onclick="return Layout.shared('bl')">&nbsp;</a>
+<a href="https://www.reddit.com/submit?url=%share_url%" target="_blank" onclick="return Layout.shared('rd')">
+<i class="fa fa-reddit"></i></a></div>
+<div class="direct_download_url">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Direct Download Link</label>
+<textarea class="narrowed" rows="1" readonly="readonly">%direct_download_url%</textarea></div>
+<div class="pro_download_page">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Pro Download Page</label>
+<textarea class="narrowed" rows="1" readonly="readonly">%pro_download_page%</textarea></div>
+<div class="download_page_url">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Download Page Link</label>
+<textarea class="narrowed" rows="1" readonly="readonly">%download_page_url%</textarea></div>
+<div class="public_url">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Bandwidth Free Link</label>
+<textarea class="narrowed" rows="1" readonly="readonly">%public_url%</textarea></div>
+<div class="delete_url">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Delete File Link</label>
+<textarea class="narrowed" rows="2" readonly="readonly">%delete_url%</textarea></div><br />
+<label>File name</label>
+<i class="fa fa-edit fa-fw ii"></i>
+<input name="name" type="text" required="required" value="%name%" placeholder="Enter file name" /><div id="pass-entry">
+<label>Protection password</label>
+<i class="fa fa-lock fa-fw ii"></i>
+<input type="text" name="password" placeholder="Enter password" autocomplete="off" value="%password%" /></div>
+<label>File description</label>
+<textarea rows="3" name="description" placeholder="Enter description">%description%</textarea>
+<button class="btn-a">Update</button><br />
+<button class="btn-c" onclick="return File_infoDeck.pop()">Cancel</button></form></script>
+<script type="tpl/template" class="tpl" id="file_info_links-tpl"><form class="form-vert contact">
+  <label class="faq-download_page_url">Download Page Link</label>
+  <p>You may use this link to point to a download page on sendspace. You can customize this page with your logo and text using the Desktop version of sendspace.</p>
+  <p>If you don't own a premium account, the recepient will be shown advertisements on that page and the download speed will be limited. Premium links don't show ads and provide the best speed possible.</p>
+  <p>If you prefer the download page to totally match your website, it is better to post the direct download links there.</p>
+
+  <label class="faq-direct_download_url">Direct Download Link</label>
+  <p>This link type is only available to premium type account users. Clicking this link will start the download directly, without redirecting the downloader to a page on sendspace.</p>
+  <p>This is an ideal solution to keep visitors at your site yet keep overall bandwidth costs low by using the power of sendspace behind the scenes.</p>
+
+  <label class="faq-public_url">Bandwidth Free Link</label>
+  <p>This type of link will show an ad-powered page on sendspace providing the recepient with options to download the file at a limited speed, but the bandwidth used to download the file won't be substracted from your account.</p>
+  <p>Please note, that if this link is used, the file will be switched to "free mode" and the premium links will stop working. This is best used only when you run out of bandwidth.</p>
+ 
+  <label class="faq-delete_url">Delete File Link</label>
+  <p>This is a special link to delete the file, that's only visible to you. If you selected an email confirmation on upload, the delete link will be included in that email also. Besides that, you have the usual means to delete files from your file-list.</p>
+  <p>Recipients of your files are unable to delete (or edit, for that matter) them, but in some cases you might want to give them the power to delete the specific file after receiving. In this case provide them with this link also. When entering this page, a confirmation will be shown before finally removing the file.</p>
+</form></script>
+<script type="tpl/template" class="tpl" id="filecode_incorrect-tpl">
+<div class="form-vert">
+<h1 class="err tac">Wrong URL specified</h1>
+<p>Please check if you copied/entered the last characters of the file-link correctly.</p></div></script>
+<script type="tpl/template" class="tpl" id="filecopy-browse-tpl">
+<div class="df_browse">
+<ul class="files">&nbsp;</ul>
+<div class="df_modal"><section class="confirm max-width">
+<p>Target folder:
+<b class="target">My Files</b></p>
+<button class="btn-c" onclick="return CopyFile.pop(1)">Cancel</button>
+<button class="btn-a fr" onclick="return CopyFile.select()">Copy Here</button></section></div></div></script>
+<script type="tpl/template" class="tpl" id="files-tpl">
+<ul class="files"></ul>
+<button class="hover-b-r btn-r" onclick="return IndexDeck.trigger()">
+<i class="fa fa-cloud-upload fa-fw"></i></button>
+<div>
+<ul id="file_options" class="option_popup fr" onclick="return FilesDeck.fs_popup_click(event)">
+<li title="select">Select</li>
+<li title="download">Download</li>
+<li title="properties">Properties</li>
+<li><hr /></li>
+<li title="delete">Delete</li></ul></div>
+<ul id="dir_options" class="option_popup fr" onclick="return FilesDeck.fs_popup_click(event)">
+<li title="select">Select</li>
+<li title="properties">Properties</li>
+<li><hr /></li>
+<li title="delete">Delete</li></ul>
+<div id="create_folder" class="nd">
+<form class="form-vert" onsubmit="return CreateFolder.submit(this,event)">
+<h1 class="tac" style="margin-top:0">Create Folder</h1>
+<input type="text" name="name" required="required" autocomplete="off" placeholder="Folder name" onkeydown="return kp(event)" /><div class="tar">
+<button class="btn-c fl" onclick="return CreateFolder.pop()">Cancel</button>
+<button class="btn-a" type="submit">Create</button></div></form></div>
+<div id="filesort" class="nd form-vert">
+<ul>
+<li>
+<label class="minihead tac">Sort by</label></li>
+<li><hr /></li>
+<li>
+<label>
+<input type="radio" name="filesort" value="name:less" onclick="return FileSort.change_sort(this)" />
+<span></span>Name (A-Z)</label></li>
+<li>
+<label>
+<input type="radio" name="filesort" value="name:more" onclick="return FileSort.change_sort(this)" />
+<span></span>Name (Z-A)</label></li>
+<li>
+<label>
+<input type="radio" name="filesort" value="upload_time:more" onclick="return FileSort.change_sort(this)" />
+<span></span>Newest first</label></li>
+<li>
+<label>
+<input type="radio" name="filesort" value="upload_time:less" onclick="return FileSort.change_sort(this)" />
+<span></span>Oldest first</label></li>
+<li>
+<label>
+<input type="radio" name="filesort" value="file_size:more" onclick="return FileSort.change_sort(this)" />
+<span></span>Largest first</label></li>
+<li>
+<label>
+<input type="radio" name="filesort" value="file_size:less" onclick="return FileSort.change_sort(this)" />
+<span></span>Smallest first</label></li></ul></div></script>
+<script type="tpl/template" class="tpl" id="folder-not-found-tpl">
+<div class="form-vert">
+<h1 class="tac err">Sorry, the folder you requested is not available</h1><br />
+<p><i>Sendspace</i> is the best way to share files with friends, family and businesses, anywhere in the world. We have grown to become the preferred file-sharing destination for millions of users.</p>
+<p>Members can send individual files or create a shared folder on <i>sendspace</i> to share photos, videos, music and other files with mutual friends.</p></script>
+<script type="tpl/template" class="tpl" id="foldercode_incorrect-tpl">
+<div class="form-vert">
+<h1 class="err tac">Wrong URL specified</h1>
+<p>Please check if you copied/entered the last characters of the folder-link correctly.</p></div></script>
+<script type="tpl/template" class="tpl" id="folder-password-tpl">
+<form class="form-vert" action="" method="post" onsubmit="FilesDeck.push(null,this.folder_password.value);return false">
+<h1 class="tac">This folder has been<br />
+password protected<br />
+by the uploader *</h1>
+<i class="fa fa-unlock fa-fw ii"></i>
+<input name="folder_password" type="password" autocomplete="off" required="required" />
+<button class="btn-a">Unlock</button>
+<p class="tac">* Do not contact sendspace about the password - we cannot provide this security information.</p></form></script>
+<script type="tpl/template" class="tpl" id="folder_info-tpl">
+<div class="download folder_info">
+<img src="/img/file_icons/%icon%.png" alt="" />
+<div class="specs">
+<p>
+<span>Folder Size:</span> %size%</p>
+<p>
+<span>Subfolders:</span> %total_folders%</p>
+<p>
+<span>Files:</span> %total_files%</p></div></div>
+<form class="form-vert" action="https://m.sendspace.com//folder/%id%" method="post" onsubmit="return Folder_infoDeck.submit(this)">
+<input type="hidden" name="folder_id" value="%id%" />
+<label>Folder name</label>
+<i class="fa fa-edit fa-fw ii"></i>
+<input name="name" type="text" required="required" value="%name%" placeholder="Enter folder name" />
+<label onclick="$('.public_url,#pass-entry').toggle($(this).find('input').is(':checked'))">
+<input name="shared" type="checkbox" value="1" />
+<span></span>share with others</label>
+<div class="tac public_url">%public_url_placeholder%</div><div id="pass-entry">
+<label>Protection password</label>
+<i class="fa fa-lock fa-fw ii"></i>
+<input type="text" name="password" placeholder="Enter password" autocomplete="off" value="%password%" /></div><br />
+<button class="btn-a">Update</button></form><br />
+<form class="form-vert">
+<button class="btn-c" onclick="return Folder_infoDeck.pop()">Cancel</button></form></script>
+<script type="tpl/template" class="tpl" id="forgot-tpl">
+<form class="form-vert" action="" method="post" onsubmit="return ForgotDeck.submit(this)">
+<p class="tal">
+<b>Please enter your email address to receive a new password:</b></p>
+<input name="email" type="email" required="required" placeholder="Email" />
+<button class="btn-a">Submit</button></form>
+<p class="tac">
+<a class="btn-c btn-w" onclick="Layout.change('login',null)">Cancel</a></p></script>
+<script type="tpl/template" class="tpl" id="fs-dir-tpl">
+<li class="dir" id="%id%" data-parent_folder_id="%parent_folder_id%">
+<i class="fr fa fa-fw fa-ellipsis-v"></i>
+<i class="fr fa fa-fw fa-check-circle"></i>
+<img src="/img/file_icons/%icon%.png" alt="" />
+<span>%name%</span></li></script>
+<script type="tpl/template" class="tpl" id="fs-file-tpl">
+<li class="file" id="%id%">
+<i class="fr fa fa-fw fa-ellipsis-v"></i>
+<i class="fr fa fa-fw fa-check-circle"></i>
+<img src="/img/file_icons/%icon%.png" alt="" />
+<p>
+<span>%name%</span><br />
+<span>%size%</span>
+<span>%uploaded%</span></p></li></script>
+<script type="tpl/template" class="tpl" id="fs-no-items-tpl">
+<li class="no-items">
+<p class="tac">No files uploaded or folders created yet</p></li></script>
+<script type="tpl/template" class="tpl" id="fs-no-subfolders-tpl">
+<li class="no-items">
+<p class="tac">No subfolders to choose from</p></li></script>
+<script type="tpl/template" class="tpl" id="index-tpl">
+<div class="mode">
+<form class="form-vert" method="post" enctype="multipart/form-data" onsubmit="return IndexDeck.submit(this)">
+<div class="tac starthere" onclick="$('input[type=file]:last').trigger('click');return false">
+<img src="https://m.sendspace.com/img/start.png" width="277" height="55" alt="" /></div>
+<div class="taparea btn-c btn-f" onclick="$('input[type=file]:last').trigger('click');return false">Tap here to select file</div>
+<div class="upfile"></div>
+<div id="fields" class="nd">&nbsp;</div>
+<label class="destfolder" onclick="return DestFolderDeck.push()">
+<span>Set destination folder:</span>
+<div>My Files</div></label>
+<input name="folder_id" type="hidden" value="0" />
+<textarea name="description" placeholder="Enter file description (optional)"></textarea>
+<i class="fa fa-lock fa-fw ii"></i>
+<input type="text" name="password" autocomplete="" placeholder="Protection password" onkeypress="return kpe(event)" onclick="return UpgradePrompt.push('Upload Password')" readonly="readonly" />
+<label>Email(s) to send link to:</label>
+<p style="margin:-5px 0">(separate with a comma for multiple addresses)</p>
+<i class="fa fa-envelope fa-fw ii"></i>
+<input type="email" name="recipient_email" placeholder="recipient@email.com" multiple="multiple" onkeypress="return kpe(event)" onchange="IndexDeck.notifier_validity_toggle(this)" /><div class="email_from">
+<label>Your email address:</label>
+<i class="fa fa-envelope-o fa-fw ii"></i>
+<input type="email" name="notify_uploader" placeholder="uploader@email.com" onkeypress="return kpe(event)" /><br /></div>
+<textarea name="recepient_message" rows="3" placeholder="Message text for recepient(s)"></textarea>
+<div class="emailing">
+<label>
+<input type="checkbox" name="notify_uploader" value="1" />
+<span></span>Send the file link to my email</label></div>
+<div class="nextwrap">
+<section class="next">
+<p>What happens next?</p>
+<div>
+<b>1</b>Upload your file(s)</div>
+<div>
+<b>2</b>Share with anyone you like!</div></section></div><br />
+<button class="btn-a" onclick="return IndexDeck.start_upload(this.form)">Upload</button>
+<input style="visibility:hidden" type="file" name="userfile" onchange="return IndexDeck.file_change(this)" /></form></div></script>
+<script type="tpl/template" class="tpl" id="login-tpl"><div class="login_for_plan form-vert nd">
+<h1 class="tac">You must login or register before upgrading your sendspace account</h1>
+<p>If you are already registered, please log in now.</p>
+<p>To register, click "Sign Up" below. You must provide a valid email address for us to send your membership activation link.</p></div>
+<form class="form-vert" method="post" action="https://m.sendspace.com/login" onsubmit="return LoginDeck.submit(this)">
+<i class="fa fa-user fa-fw ii"></i>
+<input type="text" placeholder="E-mail / Username" name="username" autocomplete="off" required="required" autofocus="autofocus" />
+<i class="fa fa-lock fa-fw ii"></i>
+<input placeholder="Password" name="password" type="password" required="required" />
+<p class="fr" onclick="return Layout.change('forgot')">
+<a href="https://m.sendspace.com/forgot">Forgot password?</a></p>
+<button class="btn-a" type="submit">Log in</button><br />
+<div onclick="return Layout.change('register')" style="cursor:pointer">
+<i>Don't have an account?</i>
+<a class="fr" href="https://m.sendspace.com/register">Sign Up</a></div></p></form></script>
+<script type="tpl/template" class="tpl" id="plan-tpl">
+<form class="form-vert plan" method="post" onsubmit="return PlansDeck.submit(this);" action="https://www.sendspace.com/checkregister2.html?nodeviceswitch&amp;formobile">
+<h1>%group%</h1>
+<div class="base_price"><b>%symbol%%price%</b>/Month</div>
+<ul>
+<li><b>%diskspace%</b> storage space*</li>
+<li>Single file size up to <b>%max_upload_size%%diskspace_unit%*</b></li>
+<li>Send up to <b>%bandwidth%%bandwidth_unit%</b> monthly</li>
+<li>
+<b>Fast and Ad-Free</b> Uploads & Downloads</li></ul>
+<select name="item">%options%</select>
+<button class="btn-a">Buy Now</button>
+<label class="subscription">
+<input name="subscription" type="checkbox" value="1" checked="checked" />
+<span></span>Automatic renewal (subscription)</label>
+<input type="hidden" name="currency" value="%currency%" />
+<input type="hidden" name="ref" value="https://m.sendspace.com/" />
+<input type="hidden" name="processor" value="%processor%" />
+<input type="hidden" name="mobile_view" value="true" /></form></script>
+<script type="tpl/template" class="tpl" id="plans-tpl">
+<div class="plans">
+<div class="premium"></div>
+<form class="form-vert plan freeplan" onsubmit="return Layout.change('register')">
+<h1>Free</h1>
+<div class="base_price"><b>Free</b></div>
+<ul>
+<li>Single file size up to <b>%maximum_upload_size%</b></li>
+<li>Basic Download Speed</li>
+<li>
+<b>Limited</b> - download within %inactive_days% days</li>
+<li>With Ads</li></ul>
+<button class="btn-a">Sign Up</button></form>
+<form class="form-vert plan downgrade nd" action="https://www.sendspace.com/mysendspace/prodowngrade.html?nodeviceswitch&formobile" method="post">
+<h1>Downgrade</h1>
+<div class="base_price"><b>Be Careful!</b></div>
+<ul>
+<li><b>Intactive</b> files will be deleted</li>
+<li>Basic Download Speed</li>
+<li>
+<b>Limited</b> - download within %inactive_days% days</li>
+<li>With Ads</li></ul>
+<button class="btn-a" name="downgrade" onclick="return ConfirmDowngrade.push()">Proceed</button></form></div>
+<div id="confirm_downgrade" class="nd">
+<form class="form-vert max-width" method="post" action="" onsubmit="return ConfirmDowngrade.submit(this)">
+<p class="tac">Are you absolutely sure about downgrading your account?</p>
+<button class="btn-c fl" onclick="return ConfirmDowngrade.pop()">Cancel</button>
+<button class="btn-a fr" type="submit">Proceed</button><br style="clear:both" /></form></div><br style="clear:both" />
+<p class="tac" onclick="return Layout.change('terms')">* Please see our 
+<a>Terms of Use</a> for full details.<br />
+Files over 2GB uploaded using the Desktop Wizard tool.</p></script>
+<script type="tpl/template" class="tpl" id="pro-prompt-tpl">
+<i class="fa fa-times-circle-o close" onclick="$('.pro-prompt').hide();$('.inv').removeClass('inv')"></i>
+<h1 class="tac">What is Sendspace Pro?</h1><p>Sendspace Pro™ is a premium service for safekeeping your files in our distributed cloud storage and sharing them with anybody you want.</p>
+<p>You will have <b>Unlimited Storage</b> (REALLY unlimited!) for files, be able to share them at <b>maximum speeds</b>, <b>password-protect</b> files and folders, limit the number of downloads for others and access your own files at any time.</p>
+<p>The Pro service offers a set of <b>website integration features</b> like download-page customization or uploads directly to your account from the webpage, direct linking to your files - and is totally <b>advertising-free</b>.</p>
+<p></p>
+<a class="btn-a" onclick="gaevt('Invite Premium Upgrade Flow','Upload Done');return Layout.change('plans')">Upgrade me NOW!</a></script>
+<script type="tpl/template" class="tpl" id="profile-tpl"><div class="profile">
+<label>Account settings</label><ul>
+<li style="cursor:pointer" onclick="return Layout.change('profile/namechange')">
+<label>Name
+<a class="fr">tap to change</a></label>
+<p>%user_name%</p></li>
+<li style="cursor:pointer" onclick="return Layout.change('profile/pwdchange')">
+<label>Password
+<a class="fr">tap to change</a></label>
+<p>*******</p></li>
+<li>
+<label>Email</label>
+<p>%email%</p></li></ul>
+<label>Plan settings</label><ul>
+<li style="cursor:pointer" onclick="Layout.change('plans')">
+<label>%membership_type%</label>
+<a class="fr">tap to upgrade</a>
+<p>%membership_ends%</p></li>
+<li class="bandw">
+<label>Direct file sharing bandwidth</label>
+<p>%bandwidth_left%</p></li>
+<li>
+<label>Storage space left</label>
+<p>%diskspace_left%</p></li>
+<li>
+<label>Storage space used</label>
+<p>%diskspace_used%</p></li></ul></div>
+<li class="bandw-nonact nd" style="cursor:pointer" onclick="return UpgradePrompt.push('Direct Sharing Bandwidth')">
+<label>Direct file sharing bandwidth</label>
+<a class="fr">tap to activate</a>
+<p>not activated</p></li></script>
+<script type="tpl/template" class="tpl" id="profile_namechange-tpl">
+<div id="name-change">
+<form class="form-vert max-width" method="post" action="" onsubmit="return ProfileNamechangeDeck.submit(this)">
+<i class="fa fa-unlock-alt fa-fw ii"></i>
+<input type="password" name="password" required="required" autocomplete="off" placeholder="Current password" onkeypress="return kp(event)" />
+<i class="fa fa-user fa-fw ii"></i>
+<input type="text" name="user_name" required="required" autocomplete="off" placeholder="Name" onkeypress="return kp(event)" />
+<button class="btn-a fr" type="submit">Update</button><br style="clear:both" /><br />
+<p class="tac" onclick="return ref.userinfo.session_key ? Layout.change('profile','replace') : Layout.change('login')">
+<a class="btn-c btn-w">Cancel</a></p></form></div></script>
+<script type="tpl/template" class="tpl" id="profile_pwdchange-tpl">
+<div id="pass-change">
+<form class="form-vert max-width" method="post" action="" onsubmit="return ProfilePwdchangeDeck.submit(this)">
+<i class="fa fa-unlock-alt fa-fw ii"></i>
+<input type="password" name="password" required="required" autocomplete="off" placeholder="Current password" onkeypress="return kp(event)" />
+<i class="fa fa-lock fa-fw ii"></i>
+<input type="password" name="new_password" required="required" autocomplete="off" placeholder="New password" onkeypress="return kp(event)" />
+<i class="fa fa-lock fa-fw ii"></i>
+<input type="password" name="new_password2" required="required" autocomplete="off" placeholder="Confirm new password" onkeypress="return kp(event)" />
+<label>
+<input name="toggle" onclick="ProfilePwdchangeDeck.toggle_pwds()" type="checkbox" />
+<span></span>show passwords</label>
+<button class="btn-a fr" type="submit">Change</button><br style="clear:both" /><br />
+<p class="tac" onclick="return ref.userinfo.session_key ? Layout.change('profile','replace') : Layout.change('login')">
+<a class="btn-c btn-w">Cancel</a></p></form></div></script>
+<script type="tpl/template" class="tpl" id="progress-tpl">
+<p>Time elapsed %elapsed%, remaining %eta%.</p>
+<p>Uploaded %uploaded_bytes% of %total_size%.</p>
+<p>Speed %speed% KB/s</p>
+<div id="progress-bar">
+<div id="meter" style="width:%meter%%"></div></div></script>
+<script type="tpl/template" class="tpl" id="register-tpl">
+<form class="form-vert register" action="https://m.sendspace.com/register" method="post" onsubmit="return RegisterDeck.submit(this)">
+<i class="fa fa-edit fa-fw ii"></i>
+<input name="full_name" type="text" required="required" placeholder="Full Name" autocomplete="off" onkeypress="return kpe(event)" />
+<p class="hint">can only contain Latin letters</p>
+<i class="fa fa-envelope-o fa-fw ii"></i>
+<input name="email" type="email" placeholder="E-mail address" required="required" autocomplete="off" onkeypress="return kpe(event)" />
+<p class="hint">valid email address is required</p>
+<i class="fa fa-lock fa-fw ii"></i>
+<input name="password" type="password" placeholder="Password" required="required" autocomplete="off" onkeypress="return kpe(event)" />
+<i class="fa fa-lock fa-fw ii"></i>
+<input type="password" name="password2" required="required" autocomplete="off" placeholder="Confirm password" onkeypress="return kpe(event)" />
+<label>
+<input name="toggle" onclick="RegisterDeck.toggle_pwds()" type="checkbox" />
+<span></span>show password</label>
+<label>
+<input name="accept" type="checkbox" autocomplete="off" />
+<span></span>I accept the
+<a onclick="return Layout.change('terms')">Terms of Use</a></label><br />
+<button type="submit" class="btn-a">Create My Account</button></form></script>
+<script type="tpl/template" class="tpl" id="search-form-tpl">
+<form class="form-vert" method="post" onsubmit="return SearchDeck.submit(this.name.value)">
+<i class="fa fa-search fa-fw ii"></i>
+<input name="name" type="search" placeholder="Search My Files" required="required" autocomplete="off" />
+<button class="btn-a" type="submit">Search</button></form></script>
+<script type="tpl/template" class="tpl" id="terms-tpl">
+<div class="terms pad">&nbsp;</div></script>
+<script type="tpl/template" class="tpl" id="upload_info-tpl">
+<div class="download upload">
+<h1>%name%</h1>
+<img src="/img/file_icons/%icon%.png" alt="" />
+<div class="specs">
+<p>
+<span>File Size:</span> %size%</p>
+<p>
+<span>Uploaded:</span>%uploaded%</p></div></div>
+<form class="form-vert properties" action="https://m.sendspace.com/file_info/?id=%id%" method="post" onsubmit="return File_infoDeck.submit(this)">
+<input type="hidden" name="file_id" value="%id%" />
+<div class="nd pro-prompt confirm taj"></div>
+<div class="sharing tac">
+<label>SHARE this file WITH YOUR FRIENDS</label>
+<label style="display:none">SHARE these files WITH YOUR FRIENDS</label>
+<a href="https://www.facebook.com/sharer/sharer.php?u=%share_url%" target="_blank" onclick="return Layout.shared('fb')">
+<i class="fa fa-facebook"></i></a>
+<a href="https://twitter.com/share?url=%share_url%" target="_blank" onclick="return Layout.shared('tw')">
+<i class="fa fa-twitter"></i></a>
+<a href="http://vk.com/share.php?url=%share_url%" target="_blank" onclick="return Layout.shared('vk')">
+<i class="fa fa-vk"></i></a>
+<a href="https://www.blogger.com/blog-this.g?u=%share_url%" target="_blank" class="bl" onclick="return Layout.shared('bl')">&nbsp;</a>
+<a href="https://www.reddit.com/submit?url=%share_url%" target="_blank" onclick="return Layout.shared('rd')">
+<i class="fa fa-reddit"></i></a></div>
+<label class="destfolder" onclick="FilesDeck.dir_list('%folder_id%')" style="display:none">
+<span>Location folder:</span>
+<div></div></label>
+<div class="description nd">
+<label>Uploader's description</label>
+<textarea style="letter-spacing:-1px" readonly="readonly" rows="1">%description%</textarea></div>
+<div class="direct_download_url">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Direct Download Link</label>
+<textarea class="narrowed" rows="1" readonly="readonly">%direct_download_url%</textarea></div>
+<div class="pro_download_page">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Pro Download Page</label>
+<textarea class="narrowed" rows="1" readonly="readonly">%pro_download_page%</textarea></div>
+<div class="download_page_url">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Download Page Link</label>
+<textarea class="narrowed" rows="1" readonly="readonly">%download_page_url%</textarea></div>
+<div class="public_url">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Bandwidth Free Link</label>
+<textarea class="narrowed" rows="1" readonly="readonly">%public_url%</textarea></div>
+<div class="delete_url">
+<label onclick="return File_infoLinksDeck.push(this)">
+<i class="fa fa-question-circle"></i>Delete File Link</label>
+<textarea class="narrowed" rows="2" readonly="readonly">%delete_url%</textarea></div></form></script>
+<script type="tpl/template" class="tpl" id="upload-append-tpl">
+<input type="hidden" name="MAX_FILE_SIZE" value="%max_file_size%" />
+<input type="hidden" name="UPLOAD_IDENTIFIER" value="%upload_identifier%" />
+<input type="hidden" name="extra_info" value="%extra_info%" />
+<input type="hidden" name="redirect_url" value="https://m.sendspace.com/upload" />
+<input type="hidden" name="user_agent" value="%user_agent%" />
+<input type="hidden" name="dummy" value="%dummy%" />
+<input type="hidden" name="request_delete_url" value="1" /></script>
+<script type="tpl/template" class="tpl" id="upload-disabled-tpl">
+<h2 class="tac">Upload Disabled</h2>
+<p class="tac">Your account has been expired. Please enter the 
+<a onclick="return Layout.change('plans')">Plans section</a> for options to renew your subscription.</p>
+<a class="btn-a" onclick="return Layout.change('plans')">Plans</a></script>
+<script type="tpl/template" class="tpl" id="upload-prompt-tpl">
+<li class="upload-prompt">
+<form class="form-vert">
+<a class="btn-a" onclick="return Layout.change('index')">Upload File</a><br />
+<a class="btn-c btn-f" onclick="return CreateFolder.push()">Create Folder</a></form></li></script>
+<script type="tpl/template" class="tpl" id="uploadfail-tpl">
+<form onclick="return Layout.change('index')" method="post" action="https://m.sendspace.com/">
+<p class="tac">Sorry, uploading failed</p>
+<p class="tac nd">
+<b>The file has been deleted<br />
+due to a violation of
+<a onclick="return TermsDeck.push('Acceptable_Use')">Terms</a></b></p>
+<button class="btn-a">Try again</button>
+<button class="btn-c" style="display:none" onclick="return Layout.change()">Cancel</button></form></script>
+<div id="basket"><section class="confirm max-width">
+<div class="clipped">&nbsp;</div>
+<div>
+<button class="btn-c" onclick="return Basket.pop()">Cancel</button><div class="fr">
+<button class="btn-a delbutton" onclick="return DeleteMultiple.push()">
+<i class="fa fa-trash"></i></button>
+<button class="canmove btn-a" onclick="return Basket.move_here()">
+<i class="fa fa-clipboard"></i> Move Here</button>
+<div class="cantmove nd">Can't move selected folder(s) here</div></div></div>
+<p class="nd">Moved successfully!
+<button class="btn-a fr" onclick="return Basket.pop()">Done</button><br style="clear:both" /></p></section></div>
+<div id="delete-multiple" onclick="return DeleteMultiple.pop()"><section class="confirm max-width">
+<p class="tac">
+<b>Really delete?</b></p>
+<div class="tac">&nbsp;</div>
+<button class="btn-c">Cancel</button>
+<button class="btn-a fr" onclick="return DeleteMultiple.confirm()">Delete</button></section></div>
+<div id="message" onclick="Message.pop()">
+<div class="max-width">
+<p class="tac">&nbsp;</p>
+<button class="btn-a">OK</button></div></div>
+<div id="dlg_bg" ontouchstart="$(this).click();return false">&nbsp;</div>
+<div id="upgrade_prompt" class="form-vert nd" onclick="return UpgradePrompt.pop()">
+<div class="max-width">
+<p class="tac">
+<b>Please upgrade your account<br />
+to use this feature</b></p>
+<button class="btn-c fl">Cancel</button>
+<button class="btn-a fr" onclick="return UpgradePrompt.submit()">Plans</button><br style="clear:both" /></div></div>    <script type="text/javascript">
+				(function (i, s, o, g, r, a, m) {
+					i['GoogleAnalyticsObject'] = r;
+					i[r] = i[r] || function () {
+						(i[r].q = i[r].q || []).push(arguments)
+					}, i[r].l = 1 * new Date();
+					a = s.createElement(o),
+									m = s.getElementsByTagName(o)[0];
+					a.async = 1;
+					a.src = g;
+					m.parentNode.insertBefore(a, m)
+				})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+				ga('create', 'UA-2221170-3', 'auto');
+    				ga('send', 'pageview');
+    </script>
+  </body>
+</html>
